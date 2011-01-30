@@ -1,0 +1,17 @@
+{
+  "name": "Goer",
+  "version": "0.1",
+  "description": "Some people like to browse, other's prefer to go directly.",
+  "permissions": ["<all_urls>"],
+  "background_page": "background/index.html",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["foreground/keys.js",
+             "foreground/input.js",
+             "foreground/modes.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ]
+}
