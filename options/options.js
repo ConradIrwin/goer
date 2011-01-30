@@ -1,9 +1,11 @@
-setTimeout(function () {
+/*global window, document, chrome, XMLHttpRequest, console, localStorage */
+window.setTimeout(function () {
     // Reload everything when the options change.
     // TODO: add some syntax validity checking
     var textarea = document.getElementsByTagName('textarea')[0],
         timeout = null,
-        port = chrome.extension.connect({name: "options"});
+        port = chrome.extension.connect({name: "options"}),
+        xhr = new XMLHttpRequest();
 
     port.onMessage.addListener(function (msg) {
         if (msg.log) {
@@ -25,7 +27,6 @@ setTimeout(function () {
 
     // Import all our normal content scripts, which gives us the right
     // event handling et.al.
-    var xhr = new XMLHttpRequest();
     xhr.open("GET", chrome.extension.getURL("manifest.json"), false);
     xhr.send();
 

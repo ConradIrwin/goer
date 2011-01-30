@@ -1,0 +1,2 @@
+all:
+	jslint */*.js

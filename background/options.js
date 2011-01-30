@@ -1,5 +1,5 @@
 /*global XMLHttpRequest, chrome, localStorage, window*/
-window.options = (function () {
+var options = (function () {
     var registrants = {};
 
     // If we're on the options page, we forward any log messages there.
@@ -67,13 +67,14 @@ window.options = (function () {
     }
 
     function defaultOptions() {
-        return localStorage.options = [
+        localStorage.options = [
             '#!goer',
             'mark o ' + chrome.extension.getURL("options/options.html"),
             'mark e chrome://extensions',
             'mark m https://mail.google.com/',
             'mark d https://docs.google.com/'
-            ].join("\n");
+        ].join("\n");
+        return localStorage.options;
     }
 
     return {

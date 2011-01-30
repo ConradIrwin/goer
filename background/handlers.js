@@ -25,7 +25,7 @@ function handler(name, doer, config) {
                         args = poss[poss.length - 1];
                     doer.apply(this, [request].concat(args));
                 } else {
-                    doer(request, spec[request.value])
+                    doer(request, spec[request.value]);
                 }
 
             }

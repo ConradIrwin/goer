@@ -23,7 +23,7 @@
 function input(mode) {
     if (!input.input) {
         input.input = document.createElement('input');
-        input.input.style.cssText = "position: fixed; top: 0px; right: 0px; width: 20px; height: 20px; border: 0px;"
+        input.input.style.cssText = "position: fixed; top: 0px; right: 0px; width: 20px; height: 20px; border: 0px;";
         input.input.onblur = function () {
             input.input.parentElement.removeChild(input.input);
         };
