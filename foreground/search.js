@@ -1,4 +1,4 @@
-/*global document, chrome, window, modes*/
+/*global document, chrome, window, mode*/
 var search = (function () {
     // Thank you very much to Eyal.
     // http://stackoverflow.com/questions/2444430/how-to-get-a-word-under-cursor-using-javascript
@@ -60,7 +60,7 @@ var search = (function () {
                 input.style.cssText = "position: fixed; top: 0px; right: 0px; width: 200px; height: 20px;";
             }
             input.value = "";
-            input.onkeydown = modes({}, {
+            input.onkeydown = mode({}, {
                 '<enter>': function (e) {
                     respond({search: input.value});
                 },

@@ -9,7 +9,7 @@
  * keyDownToVim helper is used to convert between keydown events and
  * the keys.
  */
-function modes(normal, focussed) {
+function mode(normal, focussed) {
     function press(charcode, spec, e) {
         if (spec[charcode]) {
             spec[charcode](e);
@@ -21,29 +21,30 @@ function modes(normal, focussed) {
         }
     };
 }
-document.addEventListener('keydown', function (e) {
-    (modes.active || modes.normal).handle(e, (document.activeElement === document.body));
-}, true);
-modes.activate = function (name) {
-    return function (e) {
-        modes.active = modes[name];
-    };
-};
 
-// Interact mode defines as few keyboard mappings as possible,
-// only an escape when not focussed to get out of this mode.
-modes.interact = modes({
-    "<esc>": modes.activate("normal")
-}, {});
+(function () {
+    var active, normal, interact;
 
-// Normal mode is where we spend the vast majority of time.
-modes.normal = modes({
-    "i":  modes.activate("interact"),
-    "'":  input.activate("mark", "'"),
-    "`":  input.activate("mark", "`"),
-    "\\": input.activate("search", "\\")
-}, {
-    "<esc>": function () {
-        document.activeElement.blur();
-    }
-});
+    normal = mode({
+            "i":  function () {
+                active = interact;
+            },
+            "'":  input.activate("mark", "'"),
+            "`":  input.activate("mark", "`"),
+            "\\": input.activate("search", "\\")
+        }, {
+            "<esc>": function () {
+                document.activeElement.blur();
+            }
+        });
+    interact = mode({
+            "<esc>": function () {
+                active = normal;
+            }
+        }, {});
+
+    active = normal;
+    document.addEventListener('keydown', function (e) {
+        active.handle(e, (document.activeElement === document.body));
+    }, true);
+}());
