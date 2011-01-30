@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+    <title>Goer options</title>
+    <script src="options.js"></script>
+    <style>
+        html { height: 100%; }
+        body { height: 90%;  }
+        table { width: 100%; height: 100%; }
+        td { width: 50%; }
+        textarea { height: 90%; width:95%; }
+        dt { font-family: monospace; }
+        dd { margin-bottom: 10px; }
+
+    </style>
+    <body style="height: 90%">
+
+        <table> <tr> <td>
+            <textarea></textarea>
+        </td> <td>
+            <h1>Goer Options</h1>
+
+            <p>Configuration directives:</p>
+            <dl>
+                <dt># comment</dt>
+                <dt>#!goer</dt>
+                <dd>If you want to load a script from a url, it should start with #!goer so we know we've hit the right url.</dd>
+                <dt>mark &lt;name&gt; &lt;url&gt;</dt>
+                <dd>Create a bookmark with the given name, that opens the given url. In order to use a bookmark, type either '&lt;name&gt; or `&lt;name&gt; to open the url in the current, or in a new tab.</dd>
+                <dt>load &lt;url&gt;</dt>
+                <dd>Load a goer script from the url, it must start with <code>#!goer</code>.</dd>
+                <dt>log &lt;message&gt;</dt>
+                <dd>Log a message to the console</dd>
+            </dl>
+        </td></tr></table>
+
+    </body>
+</html>
