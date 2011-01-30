@@ -38,9 +38,10 @@ modes.interact = modes({
 
 // Normal mode is where we spend the vast majority of time.
 modes.normal = modes({
-    "i": modes.activate("interact"),
-    "'": input.activate("mark", "'"),
-    "`": input.activate("mark", "`")
+    "i":  modes.activate("interact"),
+    "'":  input.activate("mark", "'"),
+    "`":  input.activate("mark", "`"),
+    "\\": input.activate("search", "\\")
 }, {
     "<esc>": function () {
         document.activeElement.blur();

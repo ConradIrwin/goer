@@ -10,7 +10,8 @@
       "matches": ["<all_urls>"],
       "js": ["foreground/keys.js",
              "foreground/input.js",
-             "foreground/modes.js"],
+             "foreground/modes.js",
+             "foreground/search.js"],
       "run_at": "document_start",
       "all_frames": true
     }

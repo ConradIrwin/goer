@@ -33,15 +33,24 @@ function handler(name, doer, config) {
     });
 }
 
-handler('mark', function (request, url) {
-    function open(url) {
-        if (request.modifier === "'") {
-            chrome.tabs.update(request.tab.id, {url: url});
-        } else if (request.modifier === "`") {
-            chrome.tabs.create({url: url, index: request.tab.index + 1, windowId: request.tab.windowId});
-        }
+function open(request, url, new_tab, background) {
+    if (new_tab) {
+        chrome.tabs.create({url: url, index: request.tab.index + 1, windowId: request.tab.windowId, selected: !background});
+    } else {
+        chrome.tabs.update(request.tab.id, {url: url});
     }
-    open(url);
+}
+handler('mark', function (request, url) {
+    open(request, url, request.modifier === "`");
+}, {expand_args: true});
+
+handler('search', function (request, url) {
+    chrome.tabs.sendRequest(request.tab.id, {action: "search"}, function (response) {
+        chrome.tabs.sendRequest(request.tab.id, {action: "unsearch"});
+        if (response.search) {
+            open(request, url.replace("%s", response.search), response.new_tab, response.background);
+        }
+    });
 }, {expand_args: true});
 
 options.reload();

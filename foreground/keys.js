@@ -57,7 +57,7 @@ var keyDownToVim = (function () {
             } else if (e.keyCode >= keyCodes.f1 && e.keyCode <= keyCodes.f12) {
                 return "f" + (1 + e.keyCode - keyCodes.f1);
             } else {
-                return e.keyIdentifier;
+                return e.keyIdentifier.toLowerCase();
             }
         } else if (keyNames[e.keyCode]) {
             return keyNames[e.keyCode];
