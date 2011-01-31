@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html style="height: 100%">
     <title>Goer options</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <script src="options.js"></script>
     <style>
         html { height: 100%; }
@@ -19,21 +20,25 @@
         </td> <td>
             <h1>Goer Options</h1>
 
-            <p>Configuration directives:</p>
+            <h3>Syntax</h3>
             <dl>
                 <dt># comment</dt>
                 <dt>#!goer</dt>
                 <dd>If you want to load a script from a url, it should start with #!goer so we know we've hit the right url.</dd>
                 <dt>mark &lt;name&gt; &lt;url&gt;</dt>
                 <dd>Create a bookmark with the given name, that opens the given url. In order to use a bookmark, type either '&lt;name&gt; or `&lt;name&gt; to open the url in the current, or in a new tab.</dd>
-                <dt>mark &lt;name&gt; &lt;location&gt; &lt;destination&gt;</dt>
-                <dd>Create an association-mark between the &lt;location&gt; (a regular expression that matches a URL), and the &lt;destination&gt; (a replacement pattern, that can include <code>$1</code> to <code>$9</code> to extract parts from the location.</dd>
+                <dt>mark &lt;name&gt; &lt;context&gt; &lt;url&gt;</dt>
+                <dd>Create a contextual bookmark that only takes effect when the current tab's URL matches the context. The destination can contain <code>$1</code> through <code>$9</code>, allowing precise mappings between sets of urls.</dd>
+                <dd>In the case that multiple locations match the current one, the first defined is used.</dd>
                 <dt>search &lt;name&gt; &lt;url&gt;</dt>
                 <dd>Create a search enging with the given name that replaces the <code>$1</code> in the URL by the search term. Type \&lt;name&gt; to start searching, and then either select, type or click on the word you wish to search for.</dd>
                 <dt>load &lt;url&gt;</dt>
                 <dd>Load a goer script from the url, it must start with <code>#!goer</code>.</dd>
             </dl>
-        </td></tr></table>
 
+            <h3>Help</h3>
+
+            <p>For more information, try the README on <a href="http://github.com/ConradIrwin/goer">GitHub</a>.</p>
+        </td></tr></table>
     </body>
 </html>
