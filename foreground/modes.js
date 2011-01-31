@@ -12,7 +12,11 @@
 function mode(normal, focussed) {
     function press(charcode, spec, e) {
         if (spec[charcode]) {
-            spec[charcode](e);
+            if (typeof spec[charcode] === 'string') {
+                press(spec[charcode], spec, e);
+            } else {
+                spec[charcode](e);
+            }
         }
     }
     return {

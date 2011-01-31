@@ -32,7 +32,7 @@
 var keyDownToVim = (function () {
     var keyCodes = { ESC: 27, backspace: 8, tab: 9, deleteKey: 46, enter: 13, space: 32, shiftKey: 16, f1: 112, f12: 123},
         // More vimmy names for some keys (TODO: expand)
-        keyNames = { 27: "esc", 37: "left", 38: "up", 39: "right", 40: "down" },
+        keyNames = { 9: "tab", 27: "esc", 37: "left", 38: "up", 39: "right", 40: "down" },
 
         // WebKit key-down events have the wrong charCode except on Mac. 
         // https://bugs.webkit.org/show_bug.cgi?id=19906 for more details.
