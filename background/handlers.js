@@ -82,7 +82,7 @@ handler('search', function (request, url) {
          // when any frame responds, we need to stop all the other frames listening.
         chrome.tabs.sendRequest(request.tab.id, {action: "unsearch"});
         if (response.search) {
-            open(request, url.replace("%s", response.search), response.new_tab, response.background);
+            open(request, url.replace("$1", response.search), response.new_tab, response.background);
         }
     });
 }, {expand_args: true});
