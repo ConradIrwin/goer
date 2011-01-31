@@ -1,0 +1,38 @@
+#!goer
+
+# Chrome shortcuts.
+mark o {options-url}
+mark e chrome://extensions
+mark s chrome://settings/
+
+# Simple bookmarks
+mark m https://mail.google.com/
+mark f https://www.facebook.com/
+
+#Search engines
+search g http://www.google.com/search?q=$1
+search p http://en.wikipedia.org/wiki/Special:Search/$1
+search d http://en.wiktionary.org/wiki/Special:Search/$1
+search t http://twitter.com/#search?q=$1
+
+## Example switching
+
+# 'm switches to GMail, preserving the Google Apps domain from Google Docs.
+mark m https://docs.google.com/a/([^/]*) https://mail.google.com/a/$1
+mark m https://mail.google.com/
+
+# 'd goes back to Google docs, again preserving the Apps domain if it's there.
+mark d https://mail.google.com/a/([^/]*) https://docs.google.com/a/$1
+mark d https://docs.google.com/
+
+## URL utilities
+
+# 's/`s: Switch between http and https.
+mark s ^https:// http://
+mark s ^http:// https://
+
+# 'U/`U: Go to the top-level of the website
+mark U ^(.*://[^/]+/).*$ $1
+
+# 'u/`u: Go up one directory level.
+mark u ^(.*://.*/)[^/]+/?$ $1

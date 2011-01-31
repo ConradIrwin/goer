@@ -67,23 +67,8 @@ var options = (function () {
     }
 
     function defaultOptions() {
-        localStorage.options = [
-            '#!goer',
-            '',
-            '# Chrome shortucts',
-            'mark o ' + chrome.extension.getURL("options/options.html"),
-            'mark e chrome://extensions',
-            'mark s chrome://settings/',
-            '',
-            'mark m https://mail.google.com/',
-            'mark f https://www.facebook.com/',
-            '',
-            '#Search engines',
-            'search g http://www.google.com/search?q=%s',
-            'search p http://en.wikipedia.org/wiki/Special:Search/%s',
-            'search d http://en.wiktionary.org/wiki/Special:Search/%s',
-            'search t http://twitter.com/#search?q=%s'
-        ].join("\n");
+        localStorage.options = load(chrome.extension.getURL("/options/default.goer"))
+                                .replace('{options-url}', chrome.extension.getURL("/options/index.html"));
         return localStorage.options;
     }
 
