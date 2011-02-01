@@ -28,62 +28,56 @@ var search = (function () {
      * This uses  a simple recursive algorithm to move down through layers of DOM to the
      * textNode, and then uses closestWord to finish the deal.
      *
-     * TODO: Words can span nodes, this doesn't work for text-boxes...
-     *
-     * Thank you very much to Eyal.
-     * http://stackoverflow.com/questions/2444430/how-to-get-a-word-under-cursor-using-javascript
+     * TODO: Words can span nodes, are there other cases to consider?
      */
-    function getWordAtPoint(elem, x, y) {
-        var range, currentPos, endPos, i, ret;
+    function getWordAtPoint(e) {
 
-        function containsPoint(range) {
-            var rect = range.getBoundingClientRect();
-            return (rect.left <= x) && (rect.right >= x) && (rect.top  <= y) && (rect.bottom >= y);
-        }
+        console.log("get word at point");
+        // The user has actually highlighted stuff.
+        if (document.getSelection().toString()) {
+            return document.getSelection().toString();
 
-        if (elem.nodeType === elem.TEXT_NODE) {
-            range = elem.ownerDocument.createRange();
-            range.selectNodeContents(elem);
-            currentPos = 0;
-            endPos = range.endOffset;
-            while (currentPos + 1 < endPos) {
-                range.setStart(elem, currentPos);
-                range.setEnd(elem, currentPos + 1);
-                if (containsPoint(range)) {
-                    if (range.toString().match(/\s/)) {
-                        return "";
-                    } else {
-                        return closestWord(elem.data, currentPos);
-                    }
-                }
-                currentPos += 1;
+        } else if (document.activeElement !== document.body) {
+
+            // The user is focused in a text-box
+            if (document.activeElement.nodeName === "INPUT" || document.activeElement.nodeName == "TEXTAREA") {
+                return closestWord(document.activeElement.value, document.activeElement.selectionStart);
+            } else {
+                // TODO: see google docs.
             }
+
+        // The user clicked somewhere randomly.
         } else {
-            for (i = 0; i < elem.childNodes.length; i += 1) {
-                range = elem.childNodes[i].ownerDocument.createRange();
-                range.selectNodeContents(elem.childNodes[i]);
-                if (containsPoint(range)) {
-                    range.detach();
-                    return getWordAtPoint(elem.childNodes[i], x, y);
-                } else {
-                    range.detach();
-                }
+            var range = document.caretRangeFromPoint(e.x, e.y);
+            if (range.startContainer.data) {
+                return closestWord(range.startContainer.data, range.startOffset);
             }
         }
-        return null;
+    }
+
+    function stop(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    }
+
+    function stopPropagation(e) {
+        e.stopPropagation();
+        return false;
     }
 
     function createListener(respond) {
         mouseup = function (e) {
             respond({
-                search: document.getSelection().toString() || getWordAtPoint(e.target, e.x, e.y),
+                search: getWordAtPoint(e),
                 new_tab: e.ctrlKey,
                 background: !e.shiftKey
             });
-            e.preventDefault();
-            e.stopPropagation();
+            return stop(e);
         };
         document.addEventListener('mouseup', mouseup, true);
+        document.addEventListener('click', stop, true);
+        document.addEventListener('mousedown', stopPropagation, true);
 
         // It is necessary to only create one text-box per tab, or they all stack on top of each other
         // and steal each other's focus.
@@ -111,6 +105,8 @@ var search = (function () {
 
     function removeListener() {
         document.removeEventListener('mouseup', mouseup, true);
+        document.removeEventListener('click', stop, true);
+        document.removeEventListener('mousedown', stopPropagation, true);
         if (input) {
             input.onblur = false;
             input.parentElement.removeChild(input);
