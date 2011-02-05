@@ -77,7 +77,7 @@ var input = (function () {
                                     chrome.extension.sendRequest({name: name, action: 'done', value: value, modifier: modifier});
                                 }
                                 textbox.blur();
-                            }, 1000);
+                            }, 2000);
 
                         // Though if they've typed nonsense, we'll get out of the way.
                         } else {
