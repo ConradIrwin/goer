@@ -2,6 +2,19 @@
 var options = (function () {
     var registrants = {};
 
+    var syncconfig = {};
+    syncext(syncconfig, function () {
+        if (syncconfig.url) {
+            localStorage.options = (localStorage.options || defaultOptions()).replace(/^sync.*/gm, "sync " + syncconfig.url);
+        }
+        var parsed = parse(localStorage.options || defaultOptions());
+        Object.keys(registrants).forEach(function (name) {
+            if (name !== 'log') {
+                registrants[name](parsed[name] || {});
+            }
+        });
+    });
+
     // If we're on the options page, we forward any log messages there.
     // (though there are no doubt more user-friendly mechanisms worth
     // investigating)
@@ -50,6 +63,8 @@ var options = (function () {
                 parsed = parse(load(key), parsed);
             } else if (name === "log") {
                 log.apply(this, [key].concat(args));
+            } else if (name === "sync" && key !== "none") {
+                syncconfig.url = key;
             } else if (registrants[name] && key) {
                 if (!parsed[name]) {
                     parsed[name] = {};

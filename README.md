@@ -5,14 +5,14 @@ Usage
 
 Goer installs keyboard shortcuts on all pages, so in order to use it, you have to type a key. It currently has four keys:
 
-* `'x` : Open bookmark `x` in the current tab.
-* <code>\`x</code> : Open bookmark `x` in a new tab.
-* `\x` : Search on search-engine `x`.
+* `'x` : Jump to `x` in the current tab.
+* <code>\`x</code> : Jump to `x` in a new tab.
+* `\x` : Search using `x`.
 * `i` : Interact with the page, i.e. disable these shortcuts until you press Escape.
 
 None of the keys will get in the way if you're already focussed on something editable, though you can type Escape to unfocus.
 
-### Bookmarks (simple) ###
+### Jumps ###
 
 To define new bookmarks, navigate to the options page (type `'o`), and add a line like:
 
@@ -22,7 +22,7 @@ This allows you to jump to Klout by typing `'k`, or to open Klout in a new tab b
 
 When you type the <code>'</code> or the <code>\`</code>, a small text box will appear in the top-right hand corner, into which you type the name. If you type the name wrong, or don't press a key for over a second, the box will disappear.
 
-### Searching ###
+### Searches ###
 
 To define new search engines, navigate to the options page (type `'o`), and add a line like:
 

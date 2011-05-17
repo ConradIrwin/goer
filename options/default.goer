@@ -1,4 +1,5 @@
 #!goer
+sync none
 
 # Chrome shortcuts.
 mark o {options-url}
