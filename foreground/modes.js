@@ -35,7 +35,7 @@ function mode(normal, focussed) {
             },
             "'":  input.activate("mark", "'"),
             "`":  input.activate("mark", "`"),
-            "\\": input.activate("search", "\\")
+            ";": input.activate("search", ";")
         }, {
             "<esc>": function () {
                 document.activeElement.blur();
